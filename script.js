@@ -130,9 +130,6 @@ let questions = [
 const body = document.querySelector("#body")
 const questionBox = document.querySelector("#question-box")
 let animationFinished = false;
-let button;
-let enterBtn
-let answerBtn
 
 const typeWriter = (text, id, shouldDelete) => {
     const element = document.getElementById(id);
@@ -195,7 +192,6 @@ function displayButton() {
           currentQuestion.innerText += `\n ${answer}`;
           answerBtn.style.display = 'none';
           enterBtn.style.display = 'inline-block';
-          enterBtn.textContent = 'Next';
       });
     })}} 
 
