@@ -160,13 +160,15 @@ const typeWriter = (text, id, shouldDelete) => {
 };
   
 const startingAnimation = async () => {
-    await typeWriter("Loading...", "line", true);
+    //await typeWriter("Loading...", "line", true);
     await typeWriter("Success!", "line", true);
     await typeWriter("So, you are JavaScript junior dev wannabe? :)", "line", true);
     await typeWriter("Let's practice some theory!", "line", true);
     await typeWriter("I have prepared some questions for you...", "line", true);
     return typeWriter("Press enter for new question...", "line", false);
 };
+
+
 
 
 function displayButton() {
@@ -193,6 +195,7 @@ function displayButton() {
           currentQuestion.innerText += `\n ${answer}`;
           answerBtn.style.display = 'none';
           enterBtn.style.display = 'inline-block';
+          enterBtn.textContent = 'Next';
       });
     })}} 
 
