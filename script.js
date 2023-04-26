@@ -157,7 +157,7 @@ const typeWriter = (text, id, shouldDelete) => {
 };
   
 const startingAnimation = async () => {
-    //await typeWriter("Loading...", "line", true);
+    await typeWriter("Loading...", "line", true);
     await typeWriter("Success!", "line", true);
     await typeWriter("So, you are JavaScript junior dev wannabe? :)", "line", true);
     await typeWriter("Let's practice some theory!", "line", true);
