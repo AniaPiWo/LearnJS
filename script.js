@@ -79,11 +79,11 @@ body.addEventListener("keypress", function (event) {
         return;
       }
   
-      const randomQuestion =
+        const randomQuestion =
         questions[Math.floor(Math.random() * questions.length)].question;
-      const newParagraph = document.createElement("p");
-      newParagraph.innerText = randomQuestion;
-      document.querySelector("#question-box").appendChild(newParagraph);
+        const newParagraph = document.createElement("p");
+        newParagraph.innerText = randomQuestion;
+        document.querySelector("#question-box").appendChild(newParagraph);
     }
   })
 
