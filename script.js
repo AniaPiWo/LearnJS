@@ -64,7 +64,7 @@ const startingAnimation = () => {
       .then(() => typeWriter("So, you are JavaScript junior dev wannabe? :)", "line", true))
       .then(() => typeWriter("Let's practice some theory!", "line", true))
       .then(() => typeWriter("I have prepared some questions for you.", "line", true))
-      .then(() => typeWriter("Press enter for question...", "line", true))
+      .then(() => typeWriter("Press enter for question...", "line", false))
 };
   
 let animationFinished = false;
