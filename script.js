@@ -63,14 +63,26 @@ const startingAnimation = () => {
       .then(() => typeWriter("Success!", "line", true))
       .then(() => typeWriter("So, you are JavaScript junior dev wannabe? :)", "line", true))
       .then(() => typeWriter("Let's practice some theory!", "line", true))
-      .then(() => typeWriter("I have prepared some questions for you.", "line", true))
-      .then(() => typeWriter("Press enter for question...", "line", false))
+      .then(() => typeWriter("I have prepared some questions for you...", "line", true))
+      .then(() => typeWriter("Press enter for new question...", "line", false))
 };
   
 let animationFinished = false;
 startingAnimation().then(() => {
     animationFinished = true;
+    const button = document.createElement('button');
+    button.textContent = 'Enter';
+    document.body.appendChild(button);
 });
+
+function displayButton() {
+    if (animationFinished) {
+      const button = document.createElement('button');
+      button.textContent = 'Enter';
+      document.body.appendChild(button);
+    }
+  }
+  
   
 body.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
@@ -84,10 +96,11 @@ body.addEventListener("keypress", function (event) {
         const newParagraph = document.createElement("p");
         newParagraph.innerText = randomQuestion;
         document.querySelector("#question-box").appendChild(newParagraph);
+        console.log(newParagraph);
     }
   })
 
-
+//why nie dziala
 body.addEventListener("touchstart", function(event) {
      if (!animationFinished) {
         event.preventDefault();
@@ -95,14 +108,12 @@ body.addEventListener("touchstart", function(event) {
       }
   
       const randomQuestion =
-        questions[Math.floor(Math.random() * questions.length)].question;
+      questions[Math.floor(Math.random() * questions.length)].question;
       const newParagraph = document.createElement("p");
       newParagraph.innerText = randomQuestion;
       document.querySelector("#question-box").appendChild(newParagraph);
 });
 
-
-  
 
   
 
