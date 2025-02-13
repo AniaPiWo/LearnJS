@@ -127,97 +127,83 @@ let questions = [
         "answer": "Shadowing in JavaScript refers to when a variable defined in a nested scope has the same name as a variable defined in an outer scope. In this case, the internal variable 'shadows' the external variable, which can lead to unexpected results and errors."  },
 ]
 
-const body = document.querySelector("#body")
-const questionBox = document.querySelector("#question-box")
+const body = document.querySelector("#body");
+const questionBox = document.querySelector("#question-box");
+
 let animationFinished = false;
 
-const typeWriter = (text, id, shouldDelete) => {
-    const element = document.getElementById(id);
-    //const cursor = element.querySelector('.cursor');
-    return new Promise((resolve) => {
-      let i = 0;
-      const typing = setInterval(() => {
-        element.textContent += text.charAt(i);
-        i++;
-        if (i > text.length) {
-          clearInterval(typing);
-          if (shouldDelete) {
-            setTimeout(() => {
-              element.textContent = "";
-              //cursor.classList.add('hide');
-              resolve();
-            }, 1000);
-          } else {
-            //cursor.classList.add('hide');
+const typeWriter = (text, id, shouldDelete = false) => {
+  const element = document.getElementById(id);
+  return new Promise((resolve) => {
+    let i = 0;
+    const typing = setInterval(() => {
+      element.textContent += text.charAt(i);
+      i++;
+      if (i > text.length) {
+        clearInterval(typing);
+        if (shouldDelete) {
+          setTimeout(() => {
+            element.textContent = "";
             resolve();
-          }
+          }, 1000);
+        } else {
+          resolve();
         }
-      }, 50);
-    });
+      }
+    }, 50);
+  });
 };
-  
+
 const startingAnimation = async () => {
-    await typeWriter("Loading...", "line", true);
-    await typeWriter("Success!", "line", true);
-    await typeWriter("So, you are JavaScript junior dev wannabe? :)", "line", true);
-    await typeWriter("Let's practice some theory!", "line", true);
-    await typeWriter("I have prepared some questions for you...", "line", true);
-    return typeWriter("Press enter for new question...", "line", false);
+  await typeWriter("Loading...", "line", true);
+  await typeWriter("Success!", "line", true);
+  await typeWriter("So, you are JavaScript junior dev wannabe? :)", "line", true);
+  await typeWriter("Let's practice some theory!", "line", true);
+  await typeWriter("I have prepared some questions for you...", "line", true);
+  return typeWriter("Press enter for new question...", "line", false);
 };
 
+const displayButton = () => {
+  if (!animationFinished) return;
 
+  const enterBtn = document.createElement('button');
+  enterBtn.textContent = 'Enter';
+  document.body.appendChild(enterBtn);
 
+  enterBtn.addEventListener("click", () => {
+    enterBtn.style.display = 'none';
+    const randomQuestion = questions[Math.floor(Math.random() * questions.length)].question;
+    const newParagraph = document.createElement("p");
+    newParagraph.innerText = randomQuestion;
+    questionBox.appendChild(newParagraph);
 
-function displayButton() {
-    if (animationFinished) {
-      const enterBtn = document.createElement('button');
-      enterBtn.textContent = 'Enter';
-      document.body.appendChild(enterBtn);
+    const answerBtn = document.createElement('button');
+    answerBtn.textContent = 'Show Answer';
+    document.body.appendChild(answerBtn);
 
-      enterBtn.addEventListener("click", function () {
-        enterBtn.style.display = 'none';
-        const randomQuestion =
-        questions[Math.floor(Math.random() * questions.length)].question;
-        const newParagraph = document.createElement("p");
-        newParagraph.innerText = randomQuestion;
-        document.querySelector("#question-box").appendChild(newParagraph);
-
-        const answerBtn = document.createElement('button');
-        answerBtn.textContent = 'Show Answer';
-        document.body.appendChild(answerBtn);
-    
-        answerBtn.addEventListener("click", function () {
-          const currentQuestion = document.querySelector("#question-box p:last-child");
-          const answer = questions.find(q => q.question === currentQuestion.innerText).answer;
-          currentQuestion.innerText += `\n ${answer}`;
-          answerBtn.style.display = 'none';
-          enterBtn.style.display = 'inline-block';
-      });
-    })}} 
-
-  
+    answerBtn.addEventListener("click", () => {
+      const currentQuestion = questionBox.querySelector("p:last-child");
+      const answer = questions.find(q => q.question === currentQuestion.innerText).answer;
+      currentQuestion.innerText += `\n ${answer}`;
+      answerBtn.style.display = 'none';
+      enterBtn.style.display = 'inline-block';
+    });
+  });
+};
 
 startingAnimation().then(() => {
-    animationFinished = true;
-    displayButton() 
+  animationFinished = true;
+  displayButton();
 });
 
-
-
-body.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      if (!animationFinished) {
-        event.preventDefault();
-        return;
-      }
-        const randomQuestion =
-        questions[Math.floor(Math.random() * questions.length)].question;
-        const newParagraph = document.createElement("p");
-        newParagraph.innerText = randomQuestion;
-        document.querySelector("#question-box").appendChild(newParagraph);
-        console.log(newParagraph);
-    }
-  })
+body.addEventListener("keypress", (event) => {
+  if (event.key === "Enter" && animationFinished) {
+    const randomQuestion = questions[Math.floor(Math.random() * questions.length)].question;
+    const newParagraph = document.createElement("p");
+    newParagraph.innerText = randomQuestion;
+    questionBox.appendChild(newParagraph);
+  }
+});
 
 
 
